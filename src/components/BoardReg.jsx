@@ -17,7 +17,7 @@ export default function BoardReg () {
     }, []);
 
     const save = () => {
-        fetch(`http://192.168.1.12:3001/api/board`, {
+        fetch(`${process.env.REACT_APP_API_URL}/board`, {
             method: 'PUT',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(board)

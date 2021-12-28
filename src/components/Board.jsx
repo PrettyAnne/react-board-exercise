@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 export default function Board() {
   const navigate = useNavigate();
   const params = useParams();
@@ -14,10 +17,10 @@ export default function Board() {
   });
 
   useEffect(() => {
-    fetch(`http://192.168.1.12:3001/api/board/${params.boardId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`)
       .then((res) => {
         res.json().then((json) => {
-          setBoard(json);
+            setBoard(json);
         });
       })
       .catch((err) => {
@@ -26,7 +29,7 @@ export default function Board() {
   }, []);
 
   const save = () => {
-    fetch(`http://192.168.1.12:3001/api/board/${params.boardId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(board),
@@ -42,8 +45,8 @@ export default function Board() {
   };
 
   const del = () => {
-    if (window.confirm('Delete?')) {
-      fetch(`http://192.168.1.12:3001/api/board/${params.boardId}`, {
+    if (window.confirm("Delete?")) {
+      fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(board),
@@ -84,6 +87,33 @@ export default function Board() {
             }}
           />
         </div>
+      </div>
+      <div className="field">
+        <label className="label">content</label>
+        <div className="control">
+          {board && board.id !== 0 && <CKEditor
+            editor={ClassicEditor}
+            data={board.content}
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setBoard({ ...board, content: data });
+            }}
+            onBlur={(event, editor) => {
+              console.log("Blur.", editor);
+            }}
+            onFocus={(event, editor) => {
+              console.log("Focus.", editor);
+            }}
+          />}
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">content</label>
+        <div className="control" dangerouslySetInnerHTML={{__html: board.content}}></div>
       </div>
       <div className="field">
         <label className="label">writer</label>
