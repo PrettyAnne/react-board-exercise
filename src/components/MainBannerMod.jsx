@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-export default function Board() {
+export default function MainBannerMod() {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -17,10 +17,10 @@ export default function Board() {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/mainBanner/${params.id}`)
       .then((res) => {
         res.json().then((json) => {
-            setBoard(json);
+          setBoard(json);
         });
       })
       .catch((err) => {
@@ -29,7 +29,7 @@ export default function Board() {
   }, []);
 
   const save = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/mainBanner/${params.id}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(board),
@@ -46,7 +46,7 @@ export default function Board() {
 
   const del = () => {
     if (window.confirm("Delete?")) {
-      fetch(`${process.env.REACT_APP_API_URL}/board/${params.boardId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/mainBanner/${params.id}`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(board),
@@ -76,44 +76,43 @@ export default function Board() {
         </div>
       </div>
       <div className="field">
-        <label className="label">subject</label>
+        <label className="label">name</label>
         <div className="control">
           <input
             className="input"
             type="text"
-            value={board.subject}
+            value={board.name}
             onChange={(e) => {
-              setBoard({ ...board, subject: e.target.value });
+              setBoard({ ...board, name: e.target.value });
             }}
           />
         </div>
       </div>
       <div className="field">
-        <label className="label">content</label>
+        <label className="label">thumb URL</label>
         <div className="control">
-          {board && board.id !== 0 && <CKEditor
-            editor={ClassicEditor}
-            data={board.content}
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor is ready to use!", editor);
+          <input
+            className="input"
+            type="text"
+            value={board.thumb_url}
+            onChange={(e) => {
+              setBoard({ ...board, thumb_url: e.target.value });
             }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setBoard({ ...board, content: data });
-            }}
-            onBlur={(event, editor) => {
-              console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log("Focus.", editor);
-            }}
-          />}
+          />
         </div>
       </div>
       <div className="field">
-        <label className="label">content</label>
-        <div className="control" dangerouslySetInnerHTML={{__html: board.content}}></div>
+        <label className="label">url</label>
+        <div className="control">
+          <input
+            className="input"
+            type="text"
+            value={board.url}
+            onChange={(e) => {
+                setBoard({ ...board, url: e.target.value });
+              }}
+          />
+        </div>
       </div>
       <div className="field">
         <label className="label">writer</label>
@@ -121,7 +120,7 @@ export default function Board() {
           <input
             className="input"
             type="text"
-            value={board.writer}
+            value={board.reg_id}
             onChange={() => {}}
           />
         </div>
@@ -132,7 +131,7 @@ export default function Board() {
           <input
             className="input"
             type="text"
-            value={board.date}
+            value={board.reg_date}
             onChange={() => {}}
           />
         </div>
@@ -144,7 +143,7 @@ export default function Board() {
         <button
           className="button is-secondary"
           onClick={() => {
-            navigate("/boardList");
+            navigate("/mainBannerList");
           }}
         >
           목록

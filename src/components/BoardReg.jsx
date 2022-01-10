@@ -48,7 +48,7 @@ export default function BoardReg () {
         <div className="control">
             <button className="button is-primary" onClick={save}>저장</button>
             <button className="button is-secondary" onClick={() => {
-                navigate('/');
+                navigate('/boardList');
             }}>목록</button>
         </div>
         </>

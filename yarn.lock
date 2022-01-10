@@ -3348,6 +3348,18 @@
   "resolved" "https://registry.npmjs.org/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz"
   "version" "3.0.0"
 
+"bulma-calendar@^6.1.15":
+  "integrity" "sha512-RYpc13iLsyUdAwQRztETkM5DLb+wpATHgi3AzeavInjkowJqoY4JxXNTgS9DQXIhKn2dxT2HHuBb8012z6KNGg=="
+  "resolved" "https://registry.npmjs.org/bulma-calendar/-/bulma-calendar-6.1.15.tgz"
+  "version" "6.1.15"
+  dependencies:
+    "date-fns" "^2.21.3"
+
+"bulma@^0.9.3":
+  "integrity" "sha512-0d7GNW1PY4ud8TWxdNcP6Cc8Bu7MxcntD/RRLGWuiw/s0a9P+XlH/6QoOIrmbj6o8WWJzJYhytiu9nFjTszk1g=="
+  "resolved" "https://registry.npmjs.org/bulma/-/bulma-0.9.3.tgz"
+  "version" "0.9.3"
+
 "bytes@3.0.0":
   "integrity" "sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg="
   "resolved" "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz"
@@ -4314,6 +4326,11 @@
     "abab" "^2.0.3"
     "whatwg-mimetype" "^2.3.0"
     "whatwg-url" "^8.0.0"
+
+"date-fns@^2.21.3":
+  "integrity" "sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
+  "version" "2.28.0"
 
 "debug@^2.2.0":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="

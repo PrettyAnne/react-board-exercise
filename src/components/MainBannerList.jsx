@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function BoradList() {
+export default function MainBannerList() {
   const navigate = useNavigate();
   const [boardList, setBoardList] = useState();
 
-  const [srchSubject, setSrchSubject] = useState("");
+  const [srchName, setSrchName] = useState("");
   const [srchWriter, setSrchWriter] = useState("");
   const [srchDateFrom, setSrchDateFrom] = useState("");
   const [srchDateTo, setSrchDateTo] = useState("");
@@ -21,10 +21,11 @@ export default function BoradList() {
 
   const getList = () => {
     fetch(
-      `${process.env.REACT_APP_API_URL}/board?page=${page}&countPerPage=${countPerPage}&srchSubject=${srchSubject}&srchWriter=${srchWriter}&srchDateFrom=${srchDateFrom}&srchDateTo=${srchDateTo}`
+      `${process.env.REACT_APP_API_URL}/mainBanner?page=${page}&countPerPage=${countPerPage}&srchName=${srchName}&srchWriter=${srchWriter}&srchDateFrom=${srchDateFrom}&srchDateTo=${srchDateTo}`
     )
       .then((res) => {
         res.json().then((json) => {
+            console.log(json);
           lastPage.current = Math.ceil(json.totalCount / countPerPage);
           var _pageList = [];
           for (var i = 1; i <= lastPage.current; i++) {
@@ -63,11 +64,21 @@ export default function BoradList() {
 
   return (
     <>
-      <table className="table is-bordered is-hoverable is-fullwidth">
+      <table className="table is-bordered is-hoverable is-fullwidth" style={{ tableLayout: 'fixed'}}>
+          <colgroup>
+          <col width="5%" />
+          <col width="*" />
+          <col width="30%" />
+          <col width="15%" />
+          <col width="10%" />
+          <col width="10%" />
+          </colgroup>
         <thead>
           <tr className="is-selected">
             <th>No</th>
             <th>제목</th>
+            <th>썸네일 URL</th>
+            <th>URL</th>
             <th>작성자</th>
             <th>작성일</th>
           </tr>
@@ -79,13 +90,15 @@ export default function BoradList() {
                 key={value.id}
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  navigate(`/board/${value.id}`);
+                  navigate(`/mainMod/${value.id}`);
                 }}
               >
                 <td>{value.no}</td>
-                <td>{value.subject}</td>
-                <td>{value.writer}</td>
-                <td>{value.date}</td>
+                <td>{value.name}</td>
+                <td style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{value.thumb_url}</td>
+                <td>{value.url}</td>
+                <td>{value.reg_id}</td>
+                <td>{value.reg_date}</td>
               </tr>
             ))}
         </tbody>
@@ -152,7 +165,7 @@ export default function BoradList() {
       <div className="field is-grouped is-grouped-right">
         <button
           onClick={() => {
-            navigate("/board");
+            navigate("/mainReg");
           }}
         >
           등록
@@ -165,9 +178,9 @@ export default function BoradList() {
             className="input"
             type="text"
             placeholder="Text input"
-            value={srchSubject}
+            value={srchName}
             onChange={(e) => {
-              setSrchSubject(e.target.value);
+              setSrchName(e.target.value);
             }}
           />
         </p>
